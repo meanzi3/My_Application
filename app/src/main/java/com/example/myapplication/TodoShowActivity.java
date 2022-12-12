@@ -2,15 +2,12 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,18 +15,12 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class TodoShowActivity extends Activity {
 
@@ -78,7 +69,6 @@ public class TodoShowActivity extends Activity {
         database = openOrCreateDatabase(databaseName, MODE_PRIVATE,null) ;
         String sql = "create table if not exists " + tableName + "(_id integer PRIMARY KEY autoincrement, todolist text, memo text, year int, month int, day int)";
         database.execSQL(sql);
-        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!year is: "+date.years+"month is :"+date.month+"year is : "+date.day);
 
         year=getIntent().getIntExtra("Year",1);
         month=getIntent().getIntExtra("Month",1);
@@ -91,11 +81,8 @@ public class TodoShowActivity extends Activity {
             // 해당날짜에 해당하는 값만 받아오기
             String sql2 = "select * from "+tableName+ " where year == "+year+" and month == "+month+" and day == "+days;
             Cursor cursor = database.rawQuery(sql2, null);
-            // getCount=선택된 레코드의 개수
             for( int i = 0; i< cursor.getCount(); i++){
-                cursor.moveToNext();//다음 레코드로 넘어간다. 첫번째 레코드의 앞을 가리키고 있으므로 ToNext()해야지 해당 레코드를 가리킴
-                // select하면 3개의 속성이 지금 들어오는데, getString의 인수에는 어떤 속성으로 가져올 것인지
-                /* 중요할지도.... *******************/
+                cursor.moveToNext();
                 String todo = cursor.getString(1);
                 String memo = cursor.getString(2);
                 int id = cursor.getInt(0);
@@ -112,7 +99,7 @@ public class TodoShowActivity extends Activity {
 
         editText = (EditText) findViewById(R.id.editText);
 
-        // 생세페이지
+        // 생세페이지 이동
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -128,6 +115,7 @@ public class TodoShowActivity extends Activity {
             }
         });
 
+        // 추가 버튼
         ImageButton addbutton = (ImageButton) findViewById(R.id.plus);
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +130,6 @@ public class TodoShowActivity extends Activity {
         });
     }
 
-    // 아답터
     public class SingerAdapter extends BaseAdapter {
         ArrayList<todolistItem> items = new ArrayList<todolistItem>();
 
@@ -156,13 +143,11 @@ public class TodoShowActivity extends Activity {
         }
 
         @Override
-        // 몇번 째 아이템 리턴
         public Object getItem(int position) {
             return items.get(position);
         }
 
         @Override
-        // 특정 포지션 리턴
         public long getItemId(int position) {
             return position;
         }
@@ -172,7 +157,6 @@ public class TodoShowActivity extends Activity {
         }
 
         @Override
-        /* View를 만들어서 리턴해줌 getView-> 실제 view가 생성이 됨 !!!**/
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             todolistItemView view = new todolistItemView(getApplicationContext());
 

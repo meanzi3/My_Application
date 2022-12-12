@@ -1,14 +1,10 @@
 package com.example.myapplication;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class todolistItemView extends LinearLayout{
@@ -37,7 +33,6 @@ public class todolistItemView extends LinearLayout{
         deletebutton=(Button)findViewById(R.id.checkBox2);
 
         deletebutton.setFocusable(false);
-
     }
 
     public void settodolist(String todolist) {
@@ -45,5 +40,4 @@ public class todolistItemView extends LinearLayout{
     }
     public void setday(int year, int month, int day){textView2.setText(year+"/"+month+"/"+day);}
     public void deleteDay(){layout.removeView(textView2);}
-
 }

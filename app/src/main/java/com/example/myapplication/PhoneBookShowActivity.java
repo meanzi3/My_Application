@@ -1,18 +1,15 @@
 package com.example.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -20,10 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PhoneBookShowActivity extends AppCompatActivity {
-    EditText editText;
     SQLiteDatabase database;
     ListView listView;
     ShowAdapter adapter; // 내부 클래스
@@ -45,12 +40,6 @@ public class PhoneBookShowActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
         listView.setFocusable(false);
 
-        // 초기 데이터셋
-        /*String sql1 = "insert into phonebook(name, age, mobile) values(?, ?, ?)";
-        Object[] params1 = {"minji", 22, "01086250484"};
-        Object[] params2 = {"sumin", 22, "01012345678"};
-        database.execSQL(sql1, params1);
-        database.execSQL(sql1, params2);*/
     }
 
     @Override
@@ -61,7 +50,7 @@ public class PhoneBookShowActivity extends AppCompatActivity {
 
         // 테이블 오픈
         String sql = "create table if not exists " + "phonebook" + "(_id integer PRIMARY KEY autoincrement, name text, age integer, mobile text)";
-        database.execSQL(sql); //sql문 실행
+        database.execSQL(sql);
 
         listView = (ListView) findViewById(R.id.listView);
 
@@ -72,12 +61,12 @@ public class PhoneBookShowActivity extends AppCompatActivity {
         // 모든 레코드를 select 하여 listview에 연결하기
         if (database != null) {
             String sql2 = "select _id, name, age, mobile from phonebook order by name";
-            Cursor cursor = database.rawQuery(sql2, null); //레코드셋 전체 집합을 저장
+            Cursor cursor = database.rawQuery(sql2, null);
 
             for (int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToNext(); //다음 레코드로 넘어간다. cursor는 첫 번째 레코드의 그 전 레코드를 항상 가르킨다. 그래서 넘겨주는고임!
+                cursor.moveToNext();
                 int id = cursor.getInt(0);
-                String name = cursor.getString(1); // 해당 커서의 0번째 속성
+                String name = cursor.getString(1);
                 int age = cursor.getInt(2);
                 String mobile = cursor.getString(3);
 
@@ -85,10 +74,10 @@ public class PhoneBookShowActivity extends AppCompatActivity {
 
                 adapter.notifyDataSetChanged();
             }
-            cursor.close(); //끝나면 커서 닫기
+            cursor.close();
         }
 
-        // 클릭하면 상세보기 화면으로
+        // 상세페이지 이동
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -117,12 +106,12 @@ public class PhoneBookShowActivity extends AppCompatActivity {
                 adapter.clearItem();
 
                 String sql3 = "select _id, name, age, mobile from phonebook where name Like "+ "'"+ '%' + s + '%' +  "'"+"order by name";
-                Cursor cursor = database.rawQuery(sql3, null); //레코드셋 전체 집합을 저장
+                Cursor cursor = database.rawQuery(sql3, null);
 
                 for (int i = 0; i < cursor.getCount(); i++) {
-                    cursor.moveToNext(); //다음 레코드로 넘어간다. cursor는 첫 번째 레코드의 그 전 레코드를 항상 가르킨다. 그래서 넘겨주는고임!
+                    cursor.moveToNext();
                     int id = cursor.getInt(0);
-                    String name = cursor.getString(1); // 해당 커서의 0번째 속성
+                    String name = cursor.getString(1);
                     int age = cursor.getInt(2);
                     String mobile = cursor.getString(3);
 
@@ -130,7 +119,7 @@ public class PhoneBookShowActivity extends AppCompatActivity {
 
                     adapter.notifyDataSetChanged();
                 }
-                cursor.close(); //끝나면 커서 닫기
+                cursor.close();
 
                 return false;
             }
@@ -161,7 +150,7 @@ public class PhoneBookShowActivity extends AppCompatActivity {
             return position;
         }
 
-        @Override // ShowItem view에 있는 메소드에 아이템들 저장. 뷰가 return / 어댑터
+        @Override
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             PhoneBookShowItemView view = new PhoneBookShowItemView(getApplicationContext());
 

@@ -1,24 +1,20 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +24,7 @@ public class TodoSearchActivity extends AppCompatActivity {
     EditText editText;
     SQLiteDatabase database;
     ListView listView;
-    SingerAdapter adapter; // 내부 클래스
+    ShowAdapter adapter; // 내부 클래스
     String tableName = "todo_table";
 
     @Override
@@ -36,6 +32,7 @@ public class TodoSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_search);
 
+        // 데이터베이스 열기
         database = openOrCreateDatabase("diary_database", MODE_PRIVATE, null);
 
         // 테이블 오픈
@@ -44,7 +41,7 @@ public class TodoSearchActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        adapter = new SingerAdapter();
+        adapter = new ShowAdapter();
         listView.setAdapter(adapter);
         listView.setFocusable(false);
 
@@ -53,6 +50,7 @@ public class TodoSearchActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        // 데이터베이스 오픈
         database = openOrCreateDatabase("diary_database", MODE_PRIVATE, null);
 
         // 테이블 오픈
@@ -61,19 +59,15 @@ public class TodoSearchActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        adapter = new SingerAdapter();
+        adapter = new ShowAdapter();
         listView.setAdapter(adapter);
         listView.setFocusable(false);
 
         if(database != null){
-            // 다 띄우기
             String sql2 = "select * from "+tableName+" order by year, month, day";
             Cursor cursor = database.rawQuery(sql2, null);
-            // getCount=선택된 레코드의 개수
             for( int i = 0; i< cursor.getCount(); i++){
-                cursor.moveToNext();//다음 레코드로 넘어간다. 첫번째 레코드의 앞을 가리키고 있으므로 ToNext()해야지 해당 레코드를 가리킴
-                // select하면 3개의 속성이 지금 들어오는데, getString의 인수에는 어떤 속성으로 가져올 것인지
-                /* 중요할지도.... *******************/
+                cursor.moveToNext();
                 String todo = cursor.getString(1);
                 String memo = cursor.getString(2);
                 int id = cursor.getInt(0);
@@ -90,7 +84,7 @@ public class TodoSearchActivity extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.editText);
 
-        // 생세페이지
+        // 생세페이지 이동
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -121,10 +115,10 @@ public class TodoSearchActivity extends AppCompatActivity {
                 adapter.clearItem();
 
                 String sql3 = "select * from "+tableName +" where todolist Like "+ "'"+ '%' + s + '%' +  "'"+"order by year, month, day";
-                Cursor cursor = database.rawQuery(sql3, null); //레코드셋 전체 집합을 저장
+                Cursor cursor = database.rawQuery(sql3, null);
 
                 for (int i = 0; i < cursor.getCount(); i++) {
-                    cursor.moveToNext(); //다음 레코드로 넘어간다. cursor는 첫 번째 레코드의 그 전 레코드를 항상 가르킨다. 그래서 넘겨주는고임!
+                    cursor.moveToNext();
                     String todo = cursor.getString(1);
                     String memo = cursor.getString(2);
                     int id = cursor.getInt(0);
@@ -134,12 +128,13 @@ public class TodoSearchActivity extends AppCompatActivity {
                     adapter.addItem(new todolistItem(todo, memo, id, year, month, day));
                     adapter.notifyDataSetChanged();
                 }
-                cursor.close(); //끝나면 커서 닫기
+                cursor.close();
 
                 return false;
             }
         });
 
+        // 뒤로 가기 버튼
         ImageButton homeButton = (ImageButton) findViewById(R.id.HomeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,11 +145,7 @@ public class TodoSearchActivity extends AppCompatActivity {
 
     }
 
-
-
-
-    // 아답터
-    public class SingerAdapter extends BaseAdapter {
+    public class ShowAdapter extends BaseAdapter {
         ArrayList<todolistItem> items = new ArrayList<todolistItem>();
 
         @Override
@@ -167,13 +158,11 @@ public class TodoSearchActivity extends AppCompatActivity {
         }
 
         @Override
-        // 몇번 째 아이템 리턴
         public Object getItem(int position) {
             return items.get(position);
         }
 
         @Override
-        // 특정 포지션 리턴
         public long getItemId(int position) {
             return position;
         }
@@ -183,7 +172,6 @@ public class TodoSearchActivity extends AppCompatActivity {
         }
 
         @Override
-        /* View를 만들어서 리턴해줌 getView-> 실제 view가 생성이 됨 !!!**/
         public View getView(int position, View convertView, ViewGroup viewGroup) {
             todolistItemView view = new todolistItemView(getApplicationContext());
 

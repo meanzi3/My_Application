@@ -1,18 +1,13 @@
 package com.example.myapplication;
 
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
-
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,16 +18,12 @@ import java.util.GregorianCalendar;
 public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecyclerAdapter.viewHolder> {
   private Context context;
   private String[] data;
-  public boolean click = false;
 
   private int week;
   private int max;
   private int savedPosition;
   private viewHolder[] savedViewHolder = new viewHolder[36];
   private GregorianCalendar cal;
-  private boolean checked = false;
-
-  public int check;
 
   public CalendarRecyclerAdapter(Context context, String[] data, int week, int max, GregorianCalendar cal){
     super();
@@ -91,15 +82,16 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
     // 일요일은 빨간색으로
     if(position % 7 == 0){
       holder.dayText.setTextColor(Color.argb(100,201,0,0));
-    }else if(position % 7 == 6){
+    }else if(position % 7 == 6){ // 토요일은 파란색으로
       holder.dayText.setTextColor(Color.argb(100,0,30,201));
     }
 
+    // 현재 달이 아닌 날은 회색으로
     if(position < week || position>(max+week)){
       holder.dayText.setTextColor(Color.argb(100,140,140,140));
     }
     holder.dayText.setText(data[position]);
-    //
+
   }
   @Override
   public int getItemCount() {

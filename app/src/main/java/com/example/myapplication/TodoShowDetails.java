@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
@@ -79,9 +78,6 @@ public class TodoShowDetails extends AppCompatActivity {
                         } // 일정 입력하면 수정 o
                         else{
                             ContentValues recordValues = new ContentValues();
-                            //recordValues.put("year", Integer.parseInt(yearText.getText().toString()));
-                            //recordValues.put("month", Integer.parseInt(monthText.getText().toString()));
-                            //recordValues.put("day", Integer.parseInt(dayText.getText().toString()));
                             recordValues.put("todolist",todoText.getText().toString());
                             recordValues.put("memo",memoText.getText().toString());
                             database.update(tableName, recordValues,"_id=?", new String[]{Integer.toString(ID)});
@@ -113,6 +109,7 @@ public class TodoShowDetails extends AppCompatActivity {
             }
         });
 
+        // 글자 수 세기
         memoText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
