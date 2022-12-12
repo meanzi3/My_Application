@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1755" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/drawable-v24/popupcondition.xml" value="0.1" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/drawable-v24/radiousbuttoncondition.xml" value="0.1" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/drawable/ic_address_book.xml" value="0.1755" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2255" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/font/font.xml" value="0.12037037037037036" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_calendar.xml" value="0.152" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_calendar_addtodo.xml" value="0.16" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_calendar_popup.xml" value="0.176" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_calendar_todo_detail.xml" value="0.1" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_home.xml" value="0.264" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_phonebook_input.xml" value="0.2" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_phonebook_show.xml" value="0.2" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_phonebook_show_detail.xml" value="0.264" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_popup.xml" value="0.1" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/activity_todo_search.xml" value="0.2" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/address_book_button.xml" value="0.2328125" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/calendar_item.xml" value="0.264" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/calender_todolistitem.xml" value="0.2" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/calender_todolistitem2.xml" value="0.15942028985507245" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/phonebook_item.xml" value="0.12132725430597771" />
+        <entry key="..\:/mobileProgramming/MyApplication3/app/src/main/res/layout/toolbar.xml" value="0.12132725430597771" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
