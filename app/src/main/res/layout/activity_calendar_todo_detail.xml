@@ -33,7 +33,7 @@
             android:fontFamily="@font/bmjua_ttf"
             android:gravity="center"
             android:text="xxxx년 xx월 xx일"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout
