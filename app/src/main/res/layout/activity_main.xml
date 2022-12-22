@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bmjua_ttf"
-            android:text="마이다이어리"
+            android:text="매직포스"
             android:textSize="40dp" />
 
     </LinearLayout>
